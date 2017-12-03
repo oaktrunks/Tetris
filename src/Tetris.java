@@ -51,10 +51,10 @@ public class Tetris {
 //        gameBoard.setBlock(23, 9, 7);
 
         //Start game loop
-        int fallDelay = 200; //delay until next falling tick in ms
+        int fallDelay = 500; //delay until next falling tick in ms
         boolean playing = true;
         boolean isFalling = false;
-        //while(playing) {
+        while(playing) {
         	//If nothing is currently falling
         	if(!isFalling) { //we need to spawn a piece
         		gameBoard.spawnRandomPiece();
@@ -62,12 +62,15 @@ public class Tetris {
         	}
         	
         	//Fall down one tick
-        	gameBoard.gravity();
-        	gameBoard.gravity();
-        	gameBoard.gravity();
-        	gameBoard.gravity();
-        	gameBoard.gravity();
-        	
+//        	gameBoard.dump();
+        	if(gameBoard.gravity()) { //something fell
+	        	//Redraw board after falling
+	        	gameBoard.drawBoard();
+//	        	gameBoard.dump();
+        	}
+        	else { //everything is now static
+        		isFalling = false;
+        	}
         	
         	//Sleep for fallDelay milliseconds until next tick
 	        try {
@@ -77,5 +80,5 @@ public class Tetris {
 	        }
         }
         
-	//}
+	}
 }
