@@ -51,15 +51,21 @@ public class Tetris {
 //        gameBoard.setBlock(23, 9, 7);
 
         //Start game loop
-        int fallDelay = 500; //delay until next falling tick in ms
+        int fallDelay = 100; //delay until next falling tick in ms
         boolean playing = true;
         boolean isFalling = false;
         while(playing) {
-        	//If nothing is currently falling
-        	if(!isFalling) { //we need to spawn a piece
+        	//If nothing is currently falling generate a new shape
+        	if(!isFalling) {
         		gameBoard.spawnRandomPiece();
         		isFalling = true;
         	}
+        	
+        	
+        	
+        	
+        	
+        	
         	
         	//Fall down one tick
 //        	gameBoard.dump();

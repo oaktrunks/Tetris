@@ -73,6 +73,9 @@ public class Board extends JPanel {
 		 */
 		Random rand = new Random();
 		
+		//TODO make all seven shapes show up together, but in random order
+		// so that you never get duplicates within 7 shapes of eachother
+		
 		int n = rand.nextInt(7) + 1;
 		//int n = 1;
 		
@@ -181,9 +184,9 @@ public class Board extends JPanel {
 				currentlyFallingBlock[2].y = 5;
 				grid[1][5] = 6 + 7;
 				
-				currentlyFallingBlock[3].x = 2;
+				currentlyFallingBlock[3].x = 1;
 				currentlyFallingBlock[3].y = 6;
-				grid[2][6] = 6 + 7;
+				grid[1][6] = 6 + 7;
 				break;
 				
 			case 7: 
@@ -298,7 +301,7 @@ public class Board extends JPanel {
 					if(grid[i][j] < 8)
 						drawBlock(g, grid[i][j], i, j);
 					else
-						drawBlock(g, grid[i][j] % 7, i, j);
+						drawBlock(g, grid[i][j] - 7, i, j);
 					//System.out.println("Drawing block at index " + i +" , " + j);
 				}
 			}
