@@ -1,11 +1,22 @@
+import java.awt.event.*;
+import javax.swing.*;
+
 //Main class responsible for holding everything, doing game loop
 public class Tetris {
 	private static TetrisFrame frame;
 	private static Board gameBoard;
-	private static home splash;
+	//private static home splash;
+	private static JPanel splashScreen;
+	
 	public static void main(String[] args) {
-        
-        gameStart();
+		//Initialize our frame
+		frame = new TetrisFrame();
+		
+		//Start splash screen
+		createSplash();
+		
+		
+        //gameStart();
         
 //        gameBoard.setBlock(0, 0, 0);
 //        gameBoard.setBlock(0, 1, 1);
@@ -22,16 +33,60 @@ public class Tetris {
         //gameBoard.redraw();
 	}
 	
+//	@Override
+//    public void actionPerformed(ActionEvent e) {
+//            System.out.println(e.getActionCommand());
+//    }
+    
+	public static void createSplash() {
+		splashScreen = new JPanel();
+		frame.add(splashScreen);
+		
+    	JButton start = new JButton("Start Game");
+    	JButton info = new JButton("How to Play");
+    	JButton credits = new JButton("Credits");
+    	
+    	splashScreen.setLayout(null);
+    	
+    	//TODO implement buttons, fix gameStart()
+    	start.setBounds(95,200,100,50);
+    	start.addActionListener(new ActionListener() {
+    	    public void actionPerformed(ActionEvent evt) {
+    	    	//start game
+    	    	gameStart();
+    	    }
+    	});
+    	splashScreen.add(start);
+    	
+    	info.setBounds(95,260,100,50);
+    	info.addActionListener(new ActionListener() {
+    	    public void actionPerformed(ActionEvent evt) {
+    	    	//show info screen
+    	    }
+    	});
+    	splashScreen.add(info);
+    	
+    	credits.setBounds(95,320,100,50);
+    	credits.addActionListener(new ActionListener() {
+    	    public void actionPerformed(ActionEvent evt) {
+    	    	//show credits screen
+    	    }
+    	});
+    	splashScreen.add(credits);
+	}
+	
 	//Called to start our tetris game
 	private static void gameStart() {
+		//remove our splash screen
+		frame.removeAll();
 		
-		
-		//Initialize our frame
-		frame = new TetrisFrame();
-		splash = new home();
+		//add game board
         gameBoard = new Board();
-        frame.add(splash);
-        //frame.add(gameBoard);
+        frame.add(gameBoard);
+        
+        //repaint our frame
+        frame.revalidate();
+        frame.repaint();
         
         //debug blocks
 //        gameBoard.setBlock(4, 0, 1);

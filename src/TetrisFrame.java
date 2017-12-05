@@ -16,6 +16,7 @@ public class TetrisFrame extends JFrame{
     	setTitle("Tetris");
     	setResizable(false);
     	setVisible(true);
+		//setFocusable(true);
     }
 
 }
