@@ -40,6 +40,7 @@ public class Tetris {
     
 	public static void createSplash() {
 		splashScreen = new JPanel();
+		gameBoard = new Board();
 		frame.add(splashScreen);
 		
     	JButton start = new JButton("Start Game");
@@ -52,8 +53,7 @@ public class Tetris {
     	start.setBounds(95,200,100,50);
     	start.addActionListener(new ActionListener() {
     	    public void actionPerformed(ActionEvent evt) {
-    	    	//start game
-    	    	gameStart();
+    	        gameStart();
     	    }
     	});
     	splashScreen.add(start);
@@ -77,16 +77,13 @@ public class Tetris {
 	
 	//Called to start our tetris game
 	private static void gameStart() {
-		//remove our splash screen
-		frame.removeAll();
-		
-		//add game board
+    	frame.remove(splashScreen);
         gameBoard = new Board();
         frame.add(gameBoard);
-        
         //repaint our frame
         frame.revalidate();
         frame.repaint();
+        
         
         //debug blocks
 //        gameBoard.setBlock(4, 0, 1);
