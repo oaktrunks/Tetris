@@ -1,6 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
 import java.util.Random;
+import java.awt.event.*;
 
 public class Board extends JPanel {
 	private int [][] grid;
@@ -27,19 +28,57 @@ public class Board extends JPanel {
 		 * 7 is added to each number to indicate it is still falling
 		 */
 		
-		
-		
+		//array of our different shape colors. 
 		colors = new Color[] { 
 	        	new Color(0, 0, 0), new Color(204, 102, 102), 
 	            new Color(102, 204, 102), new Color(102, 102, 204), 
 	            new Color(204, 204, 102), new Color(204, 102, 204), 
 	            new Color(102, 204, 204), new Color(218, 170, 0)
 		};
+		
+		//Used to see which block is currently falling
+		// so that we know what to rotate etc.
 		currentlyFallingBlock = new Position[4];
 		currentlyFallingBlock[0] = new Position();
 		currentlyFallingBlock[1] = new Position();
 		currentlyFallingBlock[2] = new Position();
 		currentlyFallingBlock[3] = new Position();
+		
+		//Used to detect our inputs
+		setFocusable(true);
+		//Handle our inputs
+		addKeyListener(new KeyAdapter() {
+            public void keyPressed(KeyEvent e) {
+            	int keyCode = e.getKeyCode();
+            	
+            	if(keyCode == KeyEvent.VK_DOWN) {
+            		//move down a tick
+            		gravity();
+            		redraw();
+            	}
+            	if(keyCode == KeyEvent.VK_RIGHT) {
+            		//move right
+            		redraw();
+            	}
+            	if(keyCode == KeyEvent.VK_LEFT) {
+            		//move left
+            		redraw();
+            	}
+            	if(keyCode == KeyEvent.VK_Z) {
+            		//rotate left
+            		redraw();
+            	}
+            	if(keyCode == KeyEvent.VK_X) {
+            		//rotate right
+            		redraw();
+            	}
+            	
+            	if(keyCode == KeyEvent.VK_SPACE) {
+            		//instantly drop
+            		redraw();
+            	}
+            }
+		});
 	}
 	
 	//Sets the color of a block.
@@ -74,12 +113,13 @@ public class Board extends JPanel {
 		Random rand = new Random();
 		
 		//TODO make all seven shapes show up together, but in random order
-		// so that you never get duplicates within 7 shapes of eachother
+		// so that you never get duplicates within 7 shapes of each other
 		
 		int n = rand.nextInt(7) + 1;
 		//int n = 1;
 		
 		//7 is added to grid to indicate they are falling
+		//Each case is one of the different tetris shapes
 		switch (n) {
 			case 1: 
 				currentlyFallingBlock[0].x = 0;
@@ -249,12 +289,16 @@ public class Board extends JPanel {
 		//if there is collision set every piece to static
 		else {
 			for(int i = 0; i < 4; i++) {
-				//set every piece to same color. but static (minus 7)
-				grid[currentlyFallingBlock[i].x][currentlyFallingBlock[i].y] -= 7;
+				//just checking if it's greater than 7 to solve future problems
+				if(grid[currentlyFallingBlock[i].x][currentlyFallingBlock[i].y] > 7) {
+					//set every piece to same color. but static (minus 7)
+					grid[currentlyFallingBlock[i].x][currentlyFallingBlock[i].y] -= 7;
+				}
 				fell = false;
 			}
 		}
-			
+		//redraw();
+		
 		return fell;
 	}
 	
@@ -276,7 +320,7 @@ public class Board extends JPanel {
 	}
 	
 	//Redraws out gameboard
-	public void drawBoard() {
+	public void redraw() {
 		//System.out.println("repainting");
 		repaint();
 	}

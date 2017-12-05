@@ -19,7 +19,7 @@ public class Tetris {
         
         
         //gameBoard.dump();
-        //gameBoard.drawBoard();
+        //gameBoard.redraw();
 	}
 	
 	//Called to start our tetris game
@@ -51,7 +51,9 @@ public class Tetris {
 //        gameBoard.setBlock(23, 9, 7);
 
         //Start game loop
-        int fallDelay = 100; //delay until next falling tick in ms
+        int sleepTime = 750; //rough time between input polls in ms
+        //int difficulty = 1; //difficulty slider, decides how fast blocks drop (1-15)
+        //int counter = 0; //used with difficulty and pollRate to make blocks drop
         boolean playing = true;
         boolean isFalling = false;
         while(playing) {
@@ -59,28 +61,24 @@ public class Tetris {
         	if(!isFalling) {
         		gameBoard.spawnRandomPiece();
         		isFalling = true;
-        	}
-        	
-        	
-        	
-        	
-        	
+        	}     	
+        	      	
         	
         	
         	//Fall down one tick
 //        	gameBoard.dump();
         	if(gameBoard.gravity()) { //something fell
 	        	//Redraw board after falling
-	        	gameBoard.drawBoard();
+	        	gameBoard.redraw();
 //	        	gameBoard.dump();
         	}
         	else { //everything is now static
         		isFalling = false;
         	}
         	
-        	//Sleep for fallDelay milliseconds until next tick
+        	//Sleep for pollRate milliseconds until next tick
 	        try {
-	            Thread.sleep(fallDelay);
+	            Thread.sleep(sleepTime);
 	        } catch (InterruptedException e) {
 	            e.printStackTrace();
 	        }
