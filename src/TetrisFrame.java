@@ -17,4 +17,5 @@ public class TetrisFrame extends JFrame{
     	setResizable(false);
     	setVisible(true);
     }
+
 }

@@ -2,7 +2,7 @@
 public class Tetris {
 	private static TetrisFrame frame;
 	private static Board gameBoard;
-	
+	private static home splash;
 	public static void main(String[] args) {
         
         gameStart();
@@ -24,10 +24,14 @@ public class Tetris {
 	
 	//Called to start our tetris game
 	private static void gameStart() {
+		
+		
 		//Initialize our frame
 		frame = new TetrisFrame();
+		splash = new home();
         gameBoard = new Board();
-        frame.add(gameBoard);
+        frame.add(splash);
+        //frame.add(gameBoard);
         
         //debug blocks
 //        gameBoard.setBlock(4, 0, 1);
