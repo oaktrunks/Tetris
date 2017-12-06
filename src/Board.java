@@ -59,30 +59,36 @@ public class Board extends JPanel {
             	}
             	if(keyCode == KeyEvent.VK_RIGHT) {
             		//move right
+            		moveRight();
             		redraw();
             	}
             	if(keyCode == KeyEvent.VK_LEFT) {
             		//move left
+            		moveLeft();
             		redraw();
             	}
             	if(keyCode == KeyEvent.VK_Z) {
-            		//rotate left
+            		//rotate left (counter clockwise)
             		redraw();
             	}
             	if(keyCode == KeyEvent.VK_X) {
-            		//rotate right
+            		//rotate right (clockwise)
             		redraw();
             	}
             	
-            	if(keyCode == KeyEvent.VK_SPACE) {
+            	if(keyCode == KeyEvent.VK_SPACE || keyCode == KeyEvent.VK_SPACE) {
             		//instantly drop
+            		while(gravity());
+            		
+            		//spawn a new piece
+            		spawnRandomPiece();
             		redraw();
             	}
             }
 		});
 	}
 	
-	//Sets the color of a block.
+	//Sets the color of a block. Mostly used for debugging
 	public void setBlock(int i , int j, int color) {
 		grid[i][j] = color;
 	}
@@ -268,6 +274,7 @@ public class Board extends JPanel {
 	//This function is used to drop currentlyFallingBlock one tick
 	//Returns true if blocks moved down, false if everything is static
 	public boolean gravity() {
+		//return value
 		boolean fell = true;
 		//if there's no collision
 		if(canFall()) {
@@ -303,6 +310,7 @@ public class Board extends JPanel {
 		return fell;
 	}
 	
+	//Checks if there's a collision with currentlyFallingBlock
 	public boolean canFall() {
 		boolean collision = false;
 		
@@ -318,6 +326,60 @@ public class Board extends JPanel {
 		}
 		
 		return !collision;
+	}
+	
+	public void moveRight() {
+		boolean canMove = true;
+		//check if any of four pieces are on right most column
+		for(int i = 0; i < 4; i++) {
+			if(currentlyFallingBlock[i].y == WIDTH - 1) {
+				canMove = false;
+			}
+		}
+		if(canMove) {
+			//move every block to the right
+			int color = grid[currentlyFallingBlock[0].x][currentlyFallingBlock[0].y];
+			
+			//completely remove original blocks
+			for(int i = 0; i < 4; i++) {
+				grid[currentlyFallingBlock[i].x][currentlyFallingBlock[i].y] = 0;
+			}
+			//recreating shape one spot right
+			for(int i = 0; i < 4; i++) {
+				//moving piece location right
+				currentlyFallingBlock[i].y++;
+				
+				//changing block's color
+				grid[currentlyFallingBlock[i].x][currentlyFallingBlock[i].y] = color;
+			}
+		}
+	}
+	
+	public void moveLeft() {
+		boolean canMove = true;
+		//check if any of four pieces are on right most column
+		for(int i = 0; i < 4; i++) {
+			if(currentlyFallingBlock[i].y == 0) {
+				canMove = false;
+			}
+		}
+		if(canMove) {
+			//move every block to the left
+			int color = grid[currentlyFallingBlock[0].x][currentlyFallingBlock[0].y];
+			
+			//completely remove original blocks
+			for(int i = 0; i < 4; i++) {
+				grid[currentlyFallingBlock[i].x][currentlyFallingBlock[i].y] = 0;
+			}
+			//recreating shape one spot left
+			for(int i = 0; i < 4; i++) {
+				//moving piece location left
+				currentlyFallingBlock[i].y--;
+				
+				//changing block's color
+				grid[currentlyFallingBlock[i].x][currentlyFallingBlock[i].y] = color;
+			}
+		}
 	}
 	
 	//Redraws out gameboard
