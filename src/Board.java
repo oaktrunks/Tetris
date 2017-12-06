@@ -85,8 +85,6 @@ public class Board extends JPanel {
             		//instantly drop
             		while(gravity());
             		
-            		//spawn a new piece
-            		spawnRandomPiece();
             		redraw();
             	}
             }
@@ -107,7 +105,7 @@ public class Board extends JPanel {
 	private void rotate(int direction) {
 		int color = grid[currentlyFallingBlock[0].x][currentlyFallingBlock[0].y];
 		
-		//TODO CHECK ROTATE INTO BOUNDARY FOR CASE 5
+		//TODO CHECK ROTATE INTO BOUNDARY FOR CASE 3, 5, 6, 7
 		
 		switch (color - 7) {
 			case 1: //red dog
@@ -316,7 +314,7 @@ public class Board extends JPanel {
 				if(currentRotation == 1
 						&& grid[currentlyFallingBlock[2].x-1][currentlyFallingBlock[2].y] == 0
 						&& grid[currentlyFallingBlock[2].x+1][currentlyFallingBlock[2].y] == 0
-						&& grid[currentlyFallingBlock[1].x+1][currentlyFallingBlock[3].y] == 0) {
+						&& grid[currentlyFallingBlock[1].x+1][currentlyFallingBlock[1].y] == 0) {
 					System.out.println("rotating from 1 to 2");
 					//completely remove original blocks
 					removeCurrentlyFallingBlocks();
@@ -331,7 +329,7 @@ public class Board extends JPanel {
 				else if(currentRotation == 2
 						&& grid[currentlyFallingBlock[2].x][currentlyFallingBlock[2].y+1] == 0
 						&& grid[currentlyFallingBlock[2].x][currentlyFallingBlock[2].y-1] == 0
-						&& grid[currentlyFallingBlock[1].x][currentlyFallingBlock[3].y-1] == 0) {
+						&& grid[currentlyFallingBlock[1].x][currentlyFallingBlock[1].y-1] == 0) {
 					System.out.println("rotating from 2 to 3");
 					//completely remove original blocks
 					removeCurrentlyFallingBlocks();
@@ -346,7 +344,7 @@ public class Board extends JPanel {
 				else if(currentRotation == 3
 						&& grid[currentlyFallingBlock[2].x-1][currentlyFallingBlock[2].y] == 0
 						&& grid[currentlyFallingBlock[2].x+1][currentlyFallingBlock[2].y] == 0
-						&& grid[currentlyFallingBlock[1].x-1][currentlyFallingBlock[3].y] == 0) {
+						&& grid[currentlyFallingBlock[1].x-1][currentlyFallingBlock[1].y] == 0) {
 					System.out.println("rotating from 3 to 4");
 					//completely remove original blocks
 					removeCurrentlyFallingBlocks();
@@ -361,7 +359,7 @@ public class Board extends JPanel {
 				else if(currentRotation == 4
 						&& grid[currentlyFallingBlock[2].x][currentlyFallingBlock[2].y+1] == 0
 						&& grid[currentlyFallingBlock[2].x][currentlyFallingBlock[2].y-1] == 0
-						&& grid[currentlyFallingBlock[1].x][currentlyFallingBlock[3].y+1] == 0) {
+						&& grid[currentlyFallingBlock[1].x][currentlyFallingBlock[1].y+1] == 0) {
 					System.out.println("rotating from 4 to 1");
 					//completely remove original blocks
 					removeCurrentlyFallingBlocks();
@@ -612,7 +610,8 @@ public class Board extends JPanel {
 				grid[currentlyFallingBlock[i].x][currentlyFallingBlock[i].y] = color;
 			}
 		}
-		//if there is collision set every piece to static
+		//if there is collision set every piece to static 
+		// and spawn a new block
 		else {
 			for(int i = 0; i < 4; i++) {
 				//just checking if it's greater than 7 to solve future problems
@@ -622,6 +621,7 @@ public class Board extends JPanel {
 				}
 				fell = false;
 			}
+			spawnRandomPiece();
 		}
 		//redraw();
 		

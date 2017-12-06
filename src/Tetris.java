@@ -212,6 +212,9 @@ public class Tetris {
 //        gameBoard.setBlock(23, 7, 7);
 //        gameBoard.setBlock(23, 9, 7);
         
+        //Start game
+        gameBoard.spawnRandomPiece();
+        
         //Start running our game loop on a timer.
         timer.schedule(new TimerTask() {
         	@Override
@@ -225,10 +228,10 @@ public class Tetris {
 	public static void gameLoop() {
     	//If nothing is currently falling generate a new shape
     	//System.out.println("playing");
-    	if(!isFalling) {
-    		gameBoard.spawnRandomPiece();
-    		isFalling = true;
-    	}     	
+//    	if(!isFalling) {
+//    		//gameBoard.spawnRandomPiece();
+//    		isFalling = true;
+//    	}     	
     	      	
     	
     	
@@ -239,9 +242,9 @@ public class Tetris {
         	gameBoard.redraw();
 //	        	gameBoard.dump();
     	}
-    	else { //everything is now static
-    		isFalling = false;
-    	}      
+//    	else { //everything is now static
+//    		isFalling = false;
+//    	}      
 	}
 	
 }
