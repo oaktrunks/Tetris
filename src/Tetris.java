@@ -12,6 +12,7 @@ public class Tetris {
 	private static JPanel splashScreen;
 	private static JPanel infoScreen;
 	private static JPanel creditScreen;
+	private static JPanel gameOverScreen;
 	private static Timer timer;
 	
 	private static boolean isFalling;
@@ -27,6 +28,7 @@ public class Tetris {
 		
 		//Start splash screen
 		createSplash();
+		//createGameOverScreen();
 		
 		
         //gameStart();
@@ -130,6 +132,7 @@ public class Tetris {
     	back.addActionListener(new ActionListener() {
     	    public void actionPerformed(ActionEvent evt) {
     	    	createSplash();
+    	    	//createGameOverScreen();
     	    }
     	});
     	infoScreen.add(back);
@@ -154,7 +157,7 @@ public class Tetris {
     	creditScreen.add(title);
     	
     	names.setBounds(50,30,300,220);
-    	names.setFont (title.getFont ().deriveFont (24.0f));
+    	names.setFont (names.getFont ().deriveFont (24.0f));
     	creditScreen.add(names);
     	
     	back.setBounds(100, 400, 75, 30);
@@ -166,7 +169,36 @@ public class Tetris {
     	creditScreen.add(back);
 	}
 	public static void createGameOverScreen() {
-		int linesCleared = gameBoard.getLinesCleared();
+		int linesCleared = 0;//gameBoard.getLinesCleared();
+		
+		gameOverScreen = new JPanel();
+		//remove the current screen and revalidate
+		frame.getContentPane().removeAll();
+		frame.add(gameOverScreen);
+        frame.revalidate();
+        frame.repaint();
+        
+        gameOverScreen.setLayout(null);
+        
+		JButton back = new JButton("Back to Main Menu");
+		JLabel title = new JLabel("Game Over");
+		JLabel msg = new JLabel("You cleared " + linesCleared + " lines!" );
+		
+    	title.setBounds(65, 25, 200, 75);
+    	title.setFont (title.getFont ().deriveFont (30.0f));
+    	gameOverScreen.add(title);
+    	
+    	msg.setBounds(35,30,300,220);
+    	msg.setFont (msg.getFont ().deriveFont (24.0f));
+    	gameOverScreen.add(msg);
+    	
+    	back.setBounds(45, 400, 200, 30);
+    	back.addActionListener(new ActionListener() {
+    	    public void actionPerformed(ActionEvent evt) {
+    	    	createSplash();
+    	    }
+    	});
+    	gameOverScreen.add(back);
 	}
 	
 	//Called to start our tetris game
