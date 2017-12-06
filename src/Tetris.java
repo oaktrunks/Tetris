@@ -22,7 +22,6 @@ public class Tetris {
 		//Initialize our frame
 		frame = new TetrisFrame();
 		
-		timer = new Timer();
 		isFalling = false;
 		timerDelay = 750;
 		
@@ -101,9 +100,6 @@ public class Tetris {
 		infoScreen = new JPanel();
 		//remove the current screen and revalidate
 		frame.getContentPane().removeAll();
-		frame.add(infoScreen);
-        frame.revalidate();
-        frame.repaint();
         
 		infoScreen.setLayout(null);
 		
@@ -137,14 +133,14 @@ public class Tetris {
     	});
     	infoScreen.add(back);
     	
+		frame.add(infoScreen);
+        frame.revalidate();
+        frame.repaint();
 	}
 	
 	public static void createCreditsScreen() {
 		creditScreen = new JPanel();
 		frame.getContentPane().removeAll();
-		frame.add(creditScreen);
-        frame.revalidate();
-        frame.repaint();
         
         creditScreen.setLayout(null);
         
@@ -167,16 +163,18 @@ public class Tetris {
     	    }
     	});
     	creditScreen.add(back);
+    	
+		frame.add(creditScreen);
+        frame.revalidate();
+        frame.repaint();
 	}
+	
 	public static void createGameOverScreen() {
-		int linesCleared = 0;//gameBoard.getLinesCleared();
+		int linesCleared = gameBoard.getLinesCleared();
 		
 		gameOverScreen = new JPanel();
 		//remove the current screen and revalidate
 		frame.getContentPane().removeAll();
-		frame.add(gameOverScreen);
-        frame.revalidate();
-        frame.repaint();
         
         gameOverScreen.setLayout(null);
         
@@ -199,6 +197,10 @@ public class Tetris {
     	    }
     	});
     	gameOverScreen.add(back);
+    	
+		frame.add(gameOverScreen);
+        frame.revalidate();
+        frame.repaint();
 	}
 	
 	//Called to start our tetris game
@@ -250,6 +252,7 @@ public class Tetris {
         //Start game
         gameBoard.spawnRandomPiece();
         
+		timer = new Timer();
         //Start running our game loop on a timer.
         timer.schedule(new TimerTask() {
         	@Override
@@ -272,6 +275,7 @@ public class Tetris {
     		timer.purge();
     		
     		//Redirect to game over screen
+    		System.out.println("Game over");
     		createGameOverScreen();
     	}
 	}

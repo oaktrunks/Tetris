@@ -684,7 +684,10 @@ public class Board extends JPanel {
 			fell = false;
 			
 			//Check if game is over
-			spawnRandomPiece();
+			checkGameOver();		
+			if(!gameOver) {
+				spawnRandomPiece();
+			}
 		}
 		//redraw();
 		
@@ -789,6 +792,16 @@ public class Board extends JPanel {
 				
 				//changing block's color
 				grid[currentlyFallingBlock[i].x][currentlyFallingBlock[i].y] = color;
+			}
+		}
+	}
+	private void checkGameOver() {
+		//if there's a static block in first two rows, game is over
+		for(int i = 0; i < 2; i++) {
+			for(int j = 0; j  < WIDTH; j++) {
+				if(grid[i][j] > 0 && grid[i][j] < 8) {
+					gameOver = true;
+				}
 			}
 		}
 	}
