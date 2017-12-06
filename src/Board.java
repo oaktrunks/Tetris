@@ -53,6 +53,7 @@ public class Board extends JPanel {
             	
             	if(keyCode == KeyEvent.VK_DOWN) {
             		//move down a tick
+            		System.out.println("moving down");
             		gravity();
             		redraw();
             	}

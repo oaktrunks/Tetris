@@ -1,5 +1,7 @@
 import java.awt.event.*;
 import javax.swing.*;
+import java.util.*;
+import java.util.Timer;
 
 //Main class responsible for holding everything, doing game loop
 public class Tetris {
@@ -7,10 +9,18 @@ public class Tetris {
 	private static Board gameBoard;
 	//private static home splash;
 	private static JPanel splashScreen;
+	private static Timer timer;
+	
+	private static boolean isFalling;
+	private static int timerDelay;
 	
 	public static void main(String[] args) {
 		//Initialize our frame
 		frame = new TetrisFrame();
+		
+		timer = new Timer();
+		isFalling = false;
+		timerDelay = 750;
 		
 		//Start splash screen
 		createSplash();
@@ -32,16 +42,9 @@ public class Tetris {
         //gameBoard.dump();
         //gameBoard.redraw();
 	}
-	
-//	@Override
-//    public void actionPerformed(ActionEvent e) {
-//            System.out.println(e.getActionCommand());
-//    }
     
 	public static void createSplash() {
 		splashScreen = new JPanel();
-		gameBoard = new Board();
-		frame.add(splashScreen);
 		
     	JButton start = new JButton("Start Game");
     	JButton info = new JButton("How to Play");
@@ -53,7 +56,8 @@ public class Tetris {
     	start.setBounds(95,200,100,50);
     	start.addActionListener(new ActionListener() {
     	    public void actionPerformed(ActionEvent evt) {
-    	        gameStart();
+    	    	//start game
+    	    	gameStart();
     	    }
     	});
     	splashScreen.add(start);
@@ -73,17 +77,36 @@ public class Tetris {
     	    }
     	});
     	splashScreen.add(credits);
+    	
+    	frame.add(splashScreen);
+    	//frame.revalidate();
+        //frame.repaint();
 	}
 	
 	//Called to start our tetris game
 	private static void gameStart() {
-    	frame.remove(splashScreen);
+		//remove our splash screen
+		//System.out.println("removing all panels");
+		frame.getContentPane().removeAll();
+		splashScreen.setVisible(false);
+		//System.out.println("removed all panels");
+		
+		//add game board
+		//System.out.println("adding gameboard");
         gameBoard = new Board();
         frame.add(gameBoard);
+        
+        //System.out.println("added gameboard");
+        
         //repaint our frame
+        //System.out.println("revalidating and repainting");
         frame.revalidate();
         frame.repaint();
+        //frame.setVisible(true);
+        //System.out.println("adding gameboard");
         
+        //gameBoard needs focus so that KeyAdapter works.
+        gameBoard.requestFocusInWindow();
         
         //debug blocks
 //        gameBoard.setBlock(4, 0, 1);
@@ -105,40 +128,37 @@ public class Tetris {
 //        gameBoard.setBlock(23, 6, 6);
 //        gameBoard.setBlock(23, 7, 7);
 //        gameBoard.setBlock(23, 9, 7);
-
-        //Start game loop
-        int sleepTime = 750; //rough time between input polls in ms
-        //int difficulty = 1; //difficulty slider, decides how fast blocks drop (1-15)
-        //int counter = 0; //used with difficulty and pollRate to make blocks drop
-        boolean playing = true;
-        boolean isFalling = false;
-        while(playing) {
-        	//If nothing is currently falling generate a new shape
-        	if(!isFalling) {
-        		gameBoard.spawnRandomPiece();
-        		isFalling = true;
-        	}     	
-        	      	
-        	
-        	
-        	//Fall down one tick
-//        	gameBoard.dump();
-        	if(gameBoard.gravity()) { //something fell
-	        	//Redraw board after falling
-	        	gameBoard.redraw();
-//	        	gameBoard.dump();
+        
+        //Start running our game loop on a timer.
+        timer.schedule(new TimerTask() {
+        	@Override
+        	public void run() {
+        		gameLoop();
         	}
-        	else { //everything is now static
-        		isFalling = false;
-        	}
-        	
-        	//Sleep for pollRate milliseconds until next tick
-	        try {
-	            Thread.sleep(sleepTime);
-	        } catch (InterruptedException e) {
-	            e.printStackTrace();
-	        }
-        }
+        }, 0 , timerDelay);
         
 	}
+	
+	public static void gameLoop() {
+    	//If nothing is currently falling generate a new shape
+    	System.out.println("playing");
+    	if(!isFalling) {
+    		gameBoard.spawnRandomPiece();
+    		isFalling = true;
+    	}     	
+    	      	
+    	
+    	
+    	//Fall down one tick
+//        	gameBoard.dump();
+    	if(gameBoard.gravity()) { //something fell
+        	//Redraw board after falling
+        	gameBoard.redraw();
+//	        	gameBoard.dump();
+    	}
+    	else { //everything is now static
+    		isFalling = false;
+    	}      
+	}
+	
 }
