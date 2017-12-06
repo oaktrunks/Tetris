@@ -12,6 +12,9 @@ public class Board extends JPanel {
 	
 	private Position[] currentlyFallingBlock;
 	
+	//1-4 indicating current rotation
+	private int currentRotation;
+	
 	public Board() {
 		grid = new int[HEIGHT][WIDTH];
 		//Grid specifies color and status of a block
@@ -69,14 +72,16 @@ public class Board extends JPanel {
             	}
             	if(keyCode == KeyEvent.VK_Z) {
             		//rotate left (counter clockwise)
+            		rotateLeft();
             		redraw();
             	}
             	if(keyCode == KeyEvent.VK_X) {
             		//rotate right (clockwise)
+            		rotateRight();
             		redraw();
             	}
             	
-            	if(keyCode == KeyEvent.VK_SPACE || keyCode == KeyEvent.VK_SPACE) {
+            	if(keyCode == KeyEvent.VK_UP || keyCode == KeyEvent.VK_SPACE) {
             		//instantly drop
             		while(gravity());
             		
@@ -86,6 +91,72 @@ public class Board extends JPanel {
             	}
             }
 		});
+	}
+	
+	//rotate functions
+	public void rotateLeft() {
+		rotate(1);
+	}
+	public void rotateRight() {
+		rotate(2);
+	}
+	
+	//rotates currently falling block
+	// direction 1 for left rotate
+	// direction 2 for right rotate
+	private void rotate(int direction) {
+		int color = grid[currentlyFallingBlock[0].x][currentlyFallingBlock[0].y];
+		
+		switch (color - 7) {
+			case 4: //square
+				//do nothing
+				break;
+			case 5: //t piece
+				if(direction == 1){ //rotate left
+					
+				}
+				else { //rotate right
+					
+				}
+				
+			case 6: //long piece
+				//checking if rotation causes collision
+				if(currentRotation == 1
+						&& grid[currentlyFallingBlock[0].x+1][currentlyFallingBlock[0].y+2] == 0
+						&& grid[currentlyFallingBlock[0].x+2][currentlyFallingBlock[0].y+2] == 0
+						&& grid[currentlyFallingBlock[0].x+3][currentlyFallingBlock[0].y+2] == 0 
+						) {
+					
+					//completely remove original blocks
+					for(int i = 0; i < 4; i++) {
+						grid[currentlyFallingBlock[i].x][currentlyFallingBlock[i].y] = 0;
+					}
+					//add blocks in rotated positions
+					moveFallingBlock(color, 0, -1, 2);
+					
+					moveFallingBlock(color, 1, 0, 1);
+					
+					moveFallingBlock(color, 2, 1, 0);
+
+					moveFallingBlock(color, 3, 2, -1);
+					
+					currentRotation = 2;
+				}
+				break;
+		}
+	}
+	
+	//Function that moves falling block to a new position
+	// color is the color of the falling block
+	// i is the falling block's index
+	// dx is relative position to move x by
+	// dy is relative position to move y by
+	// should only be called after collision has been checked
+	private void moveFallingBlock(int color, int i , int dx, int dy) {
+		
+		currentlyFallingBlock[i].x += dx;
+		currentlyFallingBlock[i].y += dy;
+		grid[currentlyFallingBlock[i].x][currentlyFallingBlock[i].y] = color;
 	}
 	
 	//Sets the color of a block. Mostly used for debugging
@@ -124,6 +195,9 @@ public class Board extends JPanel {
 		
 		int n = rand.nextInt(7) + 1;
 		//int n = 1;
+		
+		//Setting spawning block's rotation to first rotation
+		currentRotation = 1;
 		
 		//7 is added to grid to indicate they are falling
 		//Each case is one of the different tetris shapes
@@ -254,6 +328,9 @@ public class Board extends JPanel {
 				grid[1][3] = 7 + 7;
 				break;
 		}
+		gravity();
+		gravity();
+		redraw();
 		
 	}
 	
