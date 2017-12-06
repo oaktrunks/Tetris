@@ -124,6 +124,7 @@ public class Board extends JPanel {
 					currentRotation = 2;
 				} 
 				else if (currentRotation == 2 
+						&& currentlyFallingBlock[1].y < WIDTH - 1
 						&& grid[currentlyFallingBlock[3].x][currentlyFallingBlock[1].y+1] == 0
 						&& grid[currentlyFallingBlock[3].x][currentlyFallingBlock[2].y+2] == 0) {
 					System.out.println("rotating from 2 to 1");
@@ -154,6 +155,7 @@ public class Board extends JPanel {
 					currentRotation = 2;
 				} 
 				else if (currentRotation == 2 
+						&& currentlyFallingBlock[1].y > 0
 						&& grid[currentlyFallingBlock[3].x][currentlyFallingBlock[1].y-1] == 0
 						&& grid[currentlyFallingBlock[3].x][currentlyFallingBlock[2].y-2] == 0) {
 					System.out.println("rotating from 2 to 1");
@@ -170,6 +172,7 @@ public class Board extends JPanel {
 				break;
 			case 3: // blue L piece
 				if(currentRotation == 1
+						&& currentlyFallingBlock[2].x < HEIGHT - 1
 						&& grid[currentlyFallingBlock[2].x-1][currentlyFallingBlock[2].y] == 0
 						&& grid[currentlyFallingBlock[2].x+1][currentlyFallingBlock[2].y] == 0
 						&& grid[currentlyFallingBlock[3].x-1][currentlyFallingBlock[3].y] == 0) {
@@ -185,6 +188,7 @@ public class Board extends JPanel {
 					currentRotation = 2;
 				}
 				else if(currentRotation == 2
+						&& currentlyFallingBlock[2].y > 0
 						&& grid[currentlyFallingBlock[2].x][currentlyFallingBlock[2].y+1] == 0
 						&& grid[currentlyFallingBlock[2].x][currentlyFallingBlock[2].y-1] == 0
 						&& grid[currentlyFallingBlock[3].x][currentlyFallingBlock[3].y+1] == 0) {
@@ -215,6 +219,7 @@ public class Board extends JPanel {
 					currentRotation = 4;
 				}
 				else if(currentRotation == 4
+						&& currentlyFallingBlock[2].y < WIDTH - 1
 						&& grid[currentlyFallingBlock[2].x][currentlyFallingBlock[2].y+1] == 0
 						&& grid[currentlyFallingBlock[2].x][currentlyFallingBlock[2].y-1] == 0
 						&& grid[currentlyFallingBlock[3].x][currentlyFallingBlock[3].y-1] == 0) {
@@ -237,6 +242,7 @@ public class Board extends JPanel {
 				
 			case 5: //t piece
 				if(currentRotation == 4
+						&& currentlyFallingBlock[0].y < WIDTH - 1
 						&& grid[currentlyFallingBlock[0].x][currentlyFallingBlock[0].y+1] == 0) {
 					System.out.println("rotating from 4 to 1");
 					//completely remove original blocks
@@ -263,6 +269,7 @@ public class Board extends JPanel {
 					currentRotation = 4;
 				}
 				else if(currentRotation == 2
+						&& currentlyFallingBlock[0].y > 0
 						&& grid[currentlyFallingBlock[0].x][currentlyFallingBlock[0].y-1] == 0) {
 					System.out.println("rotating from 2 to 3");
 					//completely remove original blocks
@@ -276,6 +283,7 @@ public class Board extends JPanel {
 					currentRotation = 3;
 				}
 				else if(currentRotation == 1
+						&& currentlyFallingBlock[0].x < HEIGHT - 1
 						&& grid[currentlyFallingBlock[0].x+1][currentlyFallingBlock[0].y] == 0) {
 					System.out.println("rotating from 1 to 2");
 					//completely remove original blocks
@@ -293,6 +301,7 @@ public class Board extends JPanel {
 			case 6: //long piece
 				//checking if rotation causes collision
 				if(currentRotation == 1
+						&& currentlyFallingBlock[1].x < HEIGHT - 2
 						&& grid[currentlyFallingBlock[0].x+1][currentlyFallingBlock[0].y+2] == 0
 						&& grid[currentlyFallingBlock[0].x+2][currentlyFallingBlock[0].y+2] == 0
 						&& grid[currentlyFallingBlock[0].x+3][currentlyFallingBlock[0].y+2] == 0 
@@ -308,10 +317,29 @@ public class Board extends JPanel {
 					
 					currentRotation = 2;
 				}
+				else if(currentRotation == 2
+						&& currentlyFallingBlock[1].y < WIDTH - 1
+						&& currentlyFallingBlock[1].y > 1
+						&& grid[currentlyFallingBlock[1].x][currentlyFallingBlock[1].y-2] == 0
+						&& grid[currentlyFallingBlock[1].x][currentlyFallingBlock[1].y-1] == 0
+						&& grid[currentlyFallingBlock[1].x][currentlyFallingBlock[1].y+1] == 0 
+						) {
+					//completely remove original blocks
+					removeCurrentlyFallingBlocks();
+					
+					//add blocks in rotated positions
+					moveFallingBlock(color, 0, 1, -2);			
+					moveFallingBlock(color, 1, 0, -1);				
+					moveFallingBlock(color, 2, -1, 0);
+					moveFallingBlock(color, 3, -2, 1);
+					
+					currentRotation = 1;
+				}
 				break;
 				
 			case 7: //orange L piece
 				if(currentRotation == 1
+						&& currentlyFallingBlock[2].x < HEIGHT - 1
 						&& grid[currentlyFallingBlock[2].x-1][currentlyFallingBlock[2].y] == 0
 						&& grid[currentlyFallingBlock[2].x+1][currentlyFallingBlock[2].y] == 0
 						&& grid[currentlyFallingBlock[1].x+1][currentlyFallingBlock[1].y] == 0) {
@@ -327,6 +355,7 @@ public class Board extends JPanel {
 					currentRotation = 2;
 				}
 				else if(currentRotation == 2
+						&& currentlyFallingBlock[2].y > 0
 						&& grid[currentlyFallingBlock[2].x][currentlyFallingBlock[2].y+1] == 0
 						&& grid[currentlyFallingBlock[2].x][currentlyFallingBlock[2].y-1] == 0
 						&& grid[currentlyFallingBlock[1].x][currentlyFallingBlock[1].y-1] == 0) {
@@ -357,6 +386,7 @@ public class Board extends JPanel {
 					currentRotation = 4;
 				}
 				else if(currentRotation == 4
+						&& currentlyFallingBlock[2].y < WIDTH - 1
 						&& grid[currentlyFallingBlock[2].x][currentlyFallingBlock[2].y+1] == 0
 						&& grid[currentlyFallingBlock[2].x][currentlyFallingBlock[2].y-1] == 0
 						&& grid[currentlyFallingBlock[1].x][currentlyFallingBlock[1].y+1] == 0) {
