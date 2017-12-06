@@ -1,8 +1,6 @@
 import java.awt.event.*;
 import javax.swing.*;
 
-import javafx.scene.image.Image;
-
 import java.util.*;
 import java.util.Timer;
 
@@ -13,6 +11,7 @@ public class Tetris {
 	//private static home splash;
 	private static JPanel splashScreen;
 	private static JPanel infoScreen;
+	private static JPanel creditScreen;
 	private static Timer timer;
 	
 	private static boolean isFalling;
@@ -57,13 +56,10 @@ public class Tetris {
     	JButton credits = new JButton("Credits");
     	
     	JLabel heading = new JLabel("Tetris");
-    	heading.setBounds(65, 25, 250, 250);
+    	heading.setBounds(60, 25, 250, 250);
     	heading.setFont (heading.getFont ().deriveFont (64.0f));
     	splashScreen.add(heading);
     	
-//    	JLabel heading = new JLabel(new ImageIcon("/pics/tetlog.jpg"));
-//    	heading.setBounds(65, 25, 250, 250);
-//    	splashScreen.add(heading);
     	
     	splashScreen.setLayout(null);
     	
@@ -88,7 +84,7 @@ public class Tetris {
     	credits.setBounds(95,320,100,50);
     	credits.addActionListener(new ActionListener() {
     	    public void actionPerformed(ActionEvent evt) {
-    	    	//show credits screen
+    	    	createCreditsScreen();
     	    }
     	});
     	splashScreen.add(credits);
@@ -112,7 +108,7 @@ public class Tetris {
 		JButton back = new JButton("Back");
 		JLabel title = new JLabel("How to Play");
 		JLabel control = new JLabel("Controls:");
-		JLabel controls = new JLabel("<html><p><ul><li>Up Arrow & SpaceBar:<br></i> instantly moves a piece to the bottom.<br><br>"
+		JLabel controls = new JLabel("<html><p><ul><li>Up Arrow & SpaceBar:<br></i> Instantly moves a piece to the bottom.<br><br>"
 				+ "<li>Down Arrow:<br> Accelerates the piece downward.<br><br>"
 				+ "<li>Left Arrow:<br> Moves the piece to the left.<br><br>"
 				+ "<li>Right Arrow:<br> Moves the piece to the right.<br><br>"
@@ -138,6 +134,36 @@ public class Tetris {
     	});
     	infoScreen.add(back);
     	
+	}
+	
+	public static void createCreditsScreen() {
+		creditScreen = new JPanel();
+		frame.getContentPane().removeAll();
+		frame.add(creditScreen);
+        frame.revalidate();
+        frame.repaint();
+        
+        creditScreen.setLayout(null);
+        
+		JButton back = new JButton("Back");
+		JLabel title = new JLabel("Developers:");
+		JLabel names = new JLabel("<html>Daniel Tomei<br> Tyler Coleman<br> Carlos Placencia</html>");
+		
+    	title.setBounds(50, 25, 200, 75);
+    	title.setFont (title.getFont ().deriveFont (30.0f));
+    	creditScreen.add(title);
+    	
+    	names.setBounds(50,30,300,220);
+    	names.setFont (title.getFont ().deriveFont (24.0f));
+    	creditScreen.add(names);
+    	
+    	back.setBounds(100, 400, 75, 30);
+    	back.addActionListener(new ActionListener() {
+    	    public void actionPerformed(ActionEvent evt) {
+    	    	createSplash();
+    	    }
+    	});
+    	creditScreen.add(back);
 	}
 	
 	//Called to start our tetris game
