@@ -165,6 +165,9 @@ public class Tetris {
     	});
     	creditScreen.add(back);
 	}
+	public static void createGameOverScreen() {
+		int linesCleared = gameBoard.getLinesCleared();
+	}
 	
 	//Called to start our tetris game
 	private static void gameStart() {
@@ -226,25 +229,19 @@ public class Tetris {
 	}
 	
 	public static void gameLoop() {
-    	//If nothing is currently falling generate a new shape
-    	//System.out.println("playing");
-//    	if(!isFalling) {
-//    		//gameBoard.spawnRandomPiece();
-//    		isFalling = true;
-//    	}     	
-    	      	
-    	
-    	
     	//Fall down one tick
-//        	gameBoard.dump();
     	if(gameBoard.gravity()) { //something fell
-        	//Redraw board after falling
         	gameBoard.redraw();
-//	        	gameBoard.dump();
     	}
-//    	else { //everything is now static
-//    		isFalling = false;
-//    	}      
+    	
+    	if(gameBoard.isGameOver()) {
+    		//Stop gameloop timer
+    		timer.cancel();
+    		timer.purge();
+    		
+    		//Redirect to game over screen
+    		createGameOverScreen();
+    	}
 	}
 	
 }
