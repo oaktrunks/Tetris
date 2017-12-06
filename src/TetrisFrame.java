@@ -4,7 +4,6 @@ public class TetrisFrame extends JFrame{
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
 	
 	//Game grid size is 10*20
 	private static final int WIDTH = 300;
@@ -16,6 +15,7 @@ public class TetrisFrame extends JFrame{
     	setTitle("Tetris");
     	setResizable(false);
     	setVisible(true);
+    	//validate();
 		//setFocusable(true);
     }
 
