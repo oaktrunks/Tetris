@@ -634,6 +634,9 @@ public class Board extends JPanel {
 	//This function is used to drop currentlyFallingBlock one tick
 	//Returns true if blocks moved down, false if everything is static
 	public boolean gravity() {
+		if(gameOver)
+			return false;
+		
 		//return value
 		boolean fell = true;
 		//if there's no collision
@@ -685,9 +688,9 @@ public class Board extends JPanel {
 			
 			//Check if game is over
 			checkGameOver();		
-			if(!gameOver) {
-				spawnRandomPiece();
-			}
+
+			spawnRandomPiece();
+			
 		}
 		//redraw();
 		
