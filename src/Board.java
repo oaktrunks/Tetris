@@ -107,17 +107,190 @@ public class Board extends JPanel {
 	private void rotate(int direction) {
 		int color = grid[currentlyFallingBlock[0].x][currentlyFallingBlock[0].y];
 		
+		//TODO CHECK ROTATE INTO BOUNDARY FOR CASE 5
+		
 		switch (color - 7) {
+			case 1: //red dog
+				if (currentRotation == 1 
+						&& grid[currentlyFallingBlock[1].x-1][currentlyFallingBlock[1].y] == 0
+						&& grid[currentlyFallingBlock[2].x][currentlyFallingBlock[2].y - 1] == 0) {
+					System.out.println("rotating from 1 to 2");
+					// completely remove original blocks
+					removeCurrentlyFallingBlocks();
+	
+					moveFallingBlock(color, 0, -1, 1);
+					moveFallingBlock(color, 1, 0, 0);
+					moveFallingBlock(color, 2, -1, -1);
+					moveFallingBlock(color, 3, 0, -2);
+	
+					currentRotation = 2;
+				} 
+				else if (currentRotation == 2 
+						&& grid[currentlyFallingBlock[3].x][currentlyFallingBlock[1].y+1] == 0
+						&& grid[currentlyFallingBlock[3].x][currentlyFallingBlock[2].y+2] == 0) {
+					System.out.println("rotating from 2 to 1");
+					// completely remove original blocks
+					removeCurrentlyFallingBlocks();
+	
+					moveFallingBlock(color, 0, 1, -1);
+					moveFallingBlock(color, 1, 0, 0);
+					moveFallingBlock(color, 2, 1, 1);
+					moveFallingBlock(color, 3, 0, 2);
+	
+					currentRotation = 1;
+				} 
+				break;
+			case 2: //green dog
+				if (currentRotation == 1 
+						&& grid[currentlyFallingBlock[1].x-1][currentlyFallingBlock[1].y] == 0
+						&& grid[currentlyFallingBlock[2].x][currentlyFallingBlock[2].y+1] == 0) {
+					System.out.println("rotating from 1 to 2");
+					// completely remove original blocks
+					removeCurrentlyFallingBlocks();
+		
+					moveFallingBlock(color, 0, -1, -1);
+					moveFallingBlock(color, 1, 0, 0);
+					moveFallingBlock(color, 2, -1, 1);
+					moveFallingBlock(color, 3, 0, 2);
+		
+					currentRotation = 2;
+				} 
+				else if (currentRotation == 2 
+						&& grid[currentlyFallingBlock[3].x][currentlyFallingBlock[1].y-1] == 0
+						&& grid[currentlyFallingBlock[3].x][currentlyFallingBlock[2].y-2] == 0) {
+					System.out.println("rotating from 2 to 1");
+					// completely remove original blocks
+					removeCurrentlyFallingBlocks();
+		
+					moveFallingBlock(color, 0, 1, 1);
+					moveFallingBlock(color, 1, 0, 0);
+					moveFallingBlock(color, 2, 1, -1);
+					moveFallingBlock(color, 3, 0, -2);
+		
+					currentRotation = 1;
+				} 
+				break;
+			case 3: // blue L piece
+				if(currentRotation == 1
+						&& grid[currentlyFallingBlock[2].x-1][currentlyFallingBlock[2].y] == 0
+						&& grid[currentlyFallingBlock[2].x+1][currentlyFallingBlock[2].y] == 0
+						&& grid[currentlyFallingBlock[3].x-1][currentlyFallingBlock[3].y] == 0) {
+					System.out.println("rotating from 1 to 2");
+					//completely remove original blocks
+					removeCurrentlyFallingBlocks();
+					
+					moveFallingBlock(color, 0, 0, 2);
+					moveFallingBlock(color, 1, -1, 1);
+					moveFallingBlock(color, 2, 0, 0);
+					moveFallingBlock(color, 3, 1, -1);
+						
+					currentRotation = 2;
+				}
+				else if(currentRotation == 2
+						&& grid[currentlyFallingBlock[2].x][currentlyFallingBlock[2].y+1] == 0
+						&& grid[currentlyFallingBlock[2].x][currentlyFallingBlock[2].y-1] == 0
+						&& grid[currentlyFallingBlock[3].x][currentlyFallingBlock[3].y+1] == 0) {
+					System.out.println("rotating from 2 to 3");
+					//completely remove original blocks
+					removeCurrentlyFallingBlocks();
+					
+					moveFallingBlock(color, 0, 2, 0);
+					moveFallingBlock(color, 1, 1, 1);					
+					moveFallingBlock(color, 2, 0, 0);
+					moveFallingBlock(color, 3, -1, -1);
+										
+					currentRotation = 3;
+				}
+				else if(currentRotation == 3
+						&& grid[currentlyFallingBlock[2].x-1][currentlyFallingBlock[2].y] == 0
+						&& grid[currentlyFallingBlock[2].x+1][currentlyFallingBlock[2].y] == 0
+						&& grid[currentlyFallingBlock[3].x+1][currentlyFallingBlock[3].y] == 0) {
+					System.out.println("rotating from 3 to 4");
+					//completely remove original blocks
+					removeCurrentlyFallingBlocks();
+					
+					moveFallingBlock(color, 0, 0, -2);
+					moveFallingBlock(color, 1, 1, -1);					
+					moveFallingBlock(color, 2, 0, 0);
+					moveFallingBlock(color, 3, -1, 1);
+										
+					currentRotation = 4;
+				}
+				else if(currentRotation == 4
+						&& grid[currentlyFallingBlock[2].x][currentlyFallingBlock[2].y+1] == 0
+						&& grid[currentlyFallingBlock[2].x][currentlyFallingBlock[2].y-1] == 0
+						&& grid[currentlyFallingBlock[3].x][currentlyFallingBlock[3].y-1] == 0) {
+					System.out.println("rotating from 4 to 1");
+					//completely remove original blocks
+					removeCurrentlyFallingBlocks();
+					
+					moveFallingBlock(color, 0, -2, 0);
+					moveFallingBlock(color, 1, -1, -1);					
+					moveFallingBlock(color, 2, 0, 0);
+					moveFallingBlock(color, 3, 1, 1);
+										
+					currentRotation = 1;
+				}
+				break;
+				
 			case 4: //square
 				//do nothing
 				break;
+				
 			case 5: //t piece
-				if(direction == 1){ //rotate left
+				if(currentRotation == 4
+						&& grid[currentlyFallingBlock[0].x][currentlyFallingBlock[0].y+1] == 0) {
+					System.out.println("rotating from 4 to 1");
+					//completely remove original blocks
+					removeCurrentlyFallingBlocks();
 					
+					moveFallingBlock(color, 0, 0, 0);
+					moveFallingBlock(color, 1, -1, 1);
+					moveFallingBlock(color, 2, 1, 1);
+					moveFallingBlock(color, 3, -1, -1);
+						
+					currentRotation = 1;
 				}
-				else { //rotate right
+				else if(currentRotation == 3
+						&& grid[currentlyFallingBlock[0].x-1][currentlyFallingBlock[0].y] == 0) {
+					System.out.println("rotating from 3 to 4");
+					//completely remove original blocks
+					removeCurrentlyFallingBlocks();
 					
+					moveFallingBlock(color, 0, 0, 0);
+					moveFallingBlock(color, 1, -1, -1);					
+					moveFallingBlock(color, 2, -1, 1);
+					moveFallingBlock(color, 3, 1, -1);
+										
+					currentRotation = 4;
 				}
+				else if(currentRotation == 2
+						&& grid[currentlyFallingBlock[0].x][currentlyFallingBlock[0].y-1] == 0) {
+					System.out.println("rotating from 2 to 3");
+					//completely remove original blocks
+					removeCurrentlyFallingBlocks();
+					
+					moveFallingBlock(color, 0, 0, 0);
+					moveFallingBlock(color, 1, 1, -1);					
+					moveFallingBlock(color, 2, -1, -1);
+					moveFallingBlock(color, 3, 1, 1);
+										
+					currentRotation = 3;
+				}
+				else if(currentRotation == 1
+						&& grid[currentlyFallingBlock[0].x+1][currentlyFallingBlock[0].y] == 0) {
+					System.out.println("rotating from 1 to 2");
+					//completely remove original blocks
+					removeCurrentlyFallingBlocks();
+					
+					moveFallingBlock(color, 0, 0, 0);
+					moveFallingBlock(color, 1, 1, 1);					
+					moveFallingBlock(color, 2, 1, -1);
+					moveFallingBlock(color, 3, -1, 1);
+										
+					currentRotation = 2;
+				}
+				break;
 				
 			case 6: //long piece
 				//checking if rotation causes collision
@@ -126,23 +299,89 @@ public class Board extends JPanel {
 						&& grid[currentlyFallingBlock[0].x+2][currentlyFallingBlock[0].y+2] == 0
 						&& grid[currentlyFallingBlock[0].x+3][currentlyFallingBlock[0].y+2] == 0 
 						) {
-					
 					//completely remove original blocks
-					for(int i = 0; i < 4; i++) {
-						grid[currentlyFallingBlock[i].x][currentlyFallingBlock[i].y] = 0;
-					}
+					removeCurrentlyFallingBlocks();
+					
 					//add blocks in rotated positions
-					moveFallingBlock(color, 0, -1, 2);
-					
-					moveFallingBlock(color, 1, 0, 1);
-					
+					moveFallingBlock(color, 0, -1, 2);			
+					moveFallingBlock(color, 1, 0, 1);				
 					moveFallingBlock(color, 2, 1, 0);
-
 					moveFallingBlock(color, 3, 2, -1);
 					
 					currentRotation = 2;
 				}
 				break;
+				
+			case 7: //orange L piece
+				if(currentRotation == 1
+						&& grid[currentlyFallingBlock[2].x-1][currentlyFallingBlock[2].y] == 0
+						&& grid[currentlyFallingBlock[2].x+1][currentlyFallingBlock[2].y] == 0
+						&& grid[currentlyFallingBlock[1].x+1][currentlyFallingBlock[3].y] == 0) {
+					System.out.println("rotating from 1 to 2");
+					//completely remove original blocks
+					removeCurrentlyFallingBlocks();
+					
+					moveFallingBlock(color, 0, 2, 0);
+					moveFallingBlock(color, 1, 1, -1);
+					moveFallingBlock(color, 2, 0, 0);
+					moveFallingBlock(color, 3, -1, 1);
+						
+					currentRotation = 2;
+				}
+				else if(currentRotation == 2
+						&& grid[currentlyFallingBlock[2].x][currentlyFallingBlock[2].y+1] == 0
+						&& grid[currentlyFallingBlock[2].x][currentlyFallingBlock[2].y-1] == 0
+						&& grid[currentlyFallingBlock[1].x][currentlyFallingBlock[3].y-1] == 0) {
+					System.out.println("rotating from 2 to 3");
+					//completely remove original blocks
+					removeCurrentlyFallingBlocks();
+					
+					moveFallingBlock(color, 0, 0, -2);
+					moveFallingBlock(color, 1, -1, -1);					
+					moveFallingBlock(color, 2, 0, 0);
+					moveFallingBlock(color, 3, 1, 1);
+										
+					currentRotation = 3;
+				}
+				else if(currentRotation == 3
+						&& grid[currentlyFallingBlock[2].x-1][currentlyFallingBlock[2].y] == 0
+						&& grid[currentlyFallingBlock[2].x+1][currentlyFallingBlock[2].y] == 0
+						&& grid[currentlyFallingBlock[1].x-1][currentlyFallingBlock[3].y] == 0) {
+					System.out.println("rotating from 3 to 4");
+					//completely remove original blocks
+					removeCurrentlyFallingBlocks();
+					
+					moveFallingBlock(color, 0, -2, 0);
+					moveFallingBlock(color, 1, -1, 1);					
+					moveFallingBlock(color, 2, 0, 0);
+					moveFallingBlock(color, 3, 1, -1);
+										
+					currentRotation = 4;
+				}
+				else if(currentRotation == 4
+						&& grid[currentlyFallingBlock[2].x][currentlyFallingBlock[2].y+1] == 0
+						&& grid[currentlyFallingBlock[2].x][currentlyFallingBlock[2].y-1] == 0
+						&& grid[currentlyFallingBlock[1].x][currentlyFallingBlock[3].y+1] == 0) {
+					System.out.println("rotating from 4 to 1");
+					//completely remove original blocks
+					removeCurrentlyFallingBlocks();
+					
+					moveFallingBlock(color, 0, 0, 2);
+					moveFallingBlock(color, 1, 1, 1);					
+					moveFallingBlock(color, 2, 0, 0);
+					moveFallingBlock(color, 3, -1, -1);
+										
+					currentRotation = 1;
+				}
+				break;
+		}
+	}
+	
+	//Used to remove currently falling blocks 
+	// so that they can be redrawn in a new position
+	private void removeCurrentlyFallingBlocks() {
+		for(int i = 0; i < 4; i++) {
+			grid[currentlyFallingBlock[i].x][currentlyFallingBlock[i].y] = 0;
 		}
 	}
 	
@@ -153,7 +392,9 @@ public class Board extends JPanel {
 	// dy is relative position to move y by
 	// should only be called after collision has been checked
 	private void moveFallingBlock(int color, int i , int dx, int dy) {
-		
+//		System.out.println("moving " + i + " by x: " +  dx);
+//		System.out.println("moving " + i + " by y: " +  dy);
+//		System.out.println("color =  " + color);
 		currentlyFallingBlock[i].x += dx;
 		currentlyFallingBlock[i].y += dy;
 		grid[currentlyFallingBlock[i].x][currentlyFallingBlock[i].y] = color;
@@ -275,20 +516,20 @@ public class Board extends JPanel {
 				break;
 				
 			case 5: 
-				currentlyFallingBlock[0].x = 0;
+				currentlyFallingBlock[0].x = 1;
 				currentlyFallingBlock[0].y = 4;
+				grid[1][4] = 5 + 7;
+				
+				currentlyFallingBlock[1].x = 0;
+				currentlyFallingBlock[1].y = 4;
 				grid[0][4] = 5 + 7;
 				
-				currentlyFallingBlock[1].x = 1;
-				currentlyFallingBlock[1].y = 3;
+				currentlyFallingBlock[3].x = 1;
+				currentlyFallingBlock[3].y = 3;
 				grid[1][3] = 5 + 7;
 				
 				currentlyFallingBlock[2].x = 1;
-				currentlyFallingBlock[2].y = 4;
-				grid[1][4] = 5 + 7;
-				
-				currentlyFallingBlock[3].x = 1;
-				currentlyFallingBlock[3].y = 5;
+				currentlyFallingBlock[2].y = 5;
 				grid[1][5] = 5 + 7;
 				break;
 				
@@ -413,6 +654,13 @@ public class Board extends JPanel {
 				canMove = false;
 			}
 		}
+		//check if any of four pieces have anything to the right
+		for(int i = 0; canMove && i < 4; i++) {
+			if(grid[currentlyFallingBlock[i].x][currentlyFallingBlock[i].y+1] > 0 
+					&& grid[currentlyFallingBlock[i].x][currentlyFallingBlock[i].y+1] < 8 ) {
+				canMove = false;
+			}
+		}
 		if(canMove) {
 			//move every block to the right
 			int color = grid[currentlyFallingBlock[0].x][currentlyFallingBlock[0].y];
@@ -437,6 +685,13 @@ public class Board extends JPanel {
 		//check if any of four pieces are on right most column
 		for(int i = 0; i < 4; i++) {
 			if(currentlyFallingBlock[i].y == 0) {
+				canMove = false;
+			}
+		}
+		//check if any of four pieces have anything to the left
+		for(int i = 0; canMove && i < 4; i++) {
+			if(grid[currentlyFallingBlock[i].x][currentlyFallingBlock[i].y-1] != 0
+					&& grid[currentlyFallingBlock[i].x][currentlyFallingBlock[i].y-1] < 8 ) {
 				canMove = false;
 			}
 		}

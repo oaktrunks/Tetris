@@ -224,7 +224,7 @@ public class Tetris {
 	
 	public static void gameLoop() {
     	//If nothing is currently falling generate a new shape
-    	System.out.println("playing");
+    	//System.out.println("playing");
     	if(!isFalling) {
     		gameBoard.spawnRandomPiece();
     		isFalling = true;
