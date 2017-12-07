@@ -1,3 +1,17 @@
+//----------------------------------------------------------
+//
+//	Authors: Daniel Tomei
+//			 Tyler Coleman
+//			 Carlos Placencia
+//
+//	Course: CS 4143, Section 101, Fall 17, Dr. Johnson
+//
+// Purpose: This program allows a person to play Tetris
+//			Instructions are accessible through a button on
+//				the splash screen.
+//
+//----------------------------------------------------------
+
 import java.awt.event.*;
 import javax.swing.*;
 
