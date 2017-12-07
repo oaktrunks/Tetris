@@ -106,12 +106,11 @@ public class Tetris {
 		JButton back = new JButton("Back");
 		JLabel title = new JLabel("How to Play");
 		JLabel control = new JLabel("Controls:");
-		JLabel controls = new JLabel("<html><p><ul><li>Up Arrow & SpaceBar:<br></i> Instantly moves a piece to the bottom.<br><br>"
+		JLabel controls = new JLabel("<html><p><ul><li>SpaceBar:<br></i> Instantly moves a piece to the bottom.<br><br>"
 				+ "<li>Down Arrow:<br> Accelerates the piece downward.<br><br>"
 				+ "<li>Left Arrow:<br> Moves the piece to the left.<br><br>"
 				+ "<li>Right Arrow:<br> Moves the piece to the right.<br><br>"
-				+ "<li>Z:<br> Rotates the piece counter-clockwise.<br><br>"
-				+ "<li>X:<br> Rotates the piece clockwise.</ul></p></html>");
+				+ "<li>Up Arrow:<br> Rotates the piece.<br><br>");
 		
     	title.setBounds(70, 25, 150, 25);
     	title.setFont (title.getFont ().deriveFont (24.0f));
