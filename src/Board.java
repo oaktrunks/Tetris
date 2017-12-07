@@ -3,6 +3,8 @@ import java.awt.*;
 import java.util.Random;
 import java.awt.event.*;
 
+//Class that holds most of the back-end game knowledge
+// Controls almost everything inside the tetris game.
 public class Board extends JPanel {
 	private int [][] grid;
 	//10 x 20 with 4 rows of padding up top
@@ -10,14 +12,20 @@ public class Board extends JPanel {
 	private int WIDTH = 10;
 	private Color[] colors;
 	
+	//Blocks that are currently falling down from the screen
 	private Position[] currentlyFallingBlock;
 	
 	//1-4 indicating current rotation
 	private int currentRotation;
 	
+	//Used for when game is over and for difficulty adjustments
 	private boolean gameOver;
 	private int linesCleared;
 	private int[] lineBlockCount;
+	
+	//Used for random shape selection
+	private int[] pieceArray;
+	private int pieceCounter;
 	
 	public Board() {
 		grid = new int[HEIGHT][WIDTH];
@@ -43,9 +51,15 @@ public class Board extends JPanel {
 	            new Color(102, 204, 204), new Color(218, 170, 0)
 		};
 		
+		//Values vital to game over
 		gameOver = false;
 		linesCleared = 0;
 		lineBlockCount = new int[HEIGHT];
+		
+		//Holds the random order that our pieces drop in
+		pieceArray = new int[] {1, 2, 3, 4, 5, 6, 7};
+		pieceCounter = 0; //starting at index 0
+		shufflePieceArray();
 		
 		//Used to see which block is currently falling
 		// so that we know what to rotate etc.
@@ -92,12 +106,12 @@ public class Board extends JPanel {
 		});
 	}
 	
-	//rotates currently falling block
+	//rotates currently falling shape
 	private void rotate() {
 		int color = grid[currentlyFallingBlock[0].x][currentlyFallingBlock[0].y];
 		
 		switch (color - 7) {
-			case 1: //red dog
+			case 1: //red Z
 				if (currentRotation == 1 
 						&& grid[currentlyFallingBlock[1].x-1][currentlyFallingBlock[1].y] == 0
 						&& grid[currentlyFallingBlock[2].x][currentlyFallingBlock[2].y - 1] == 0) {
@@ -126,7 +140,7 @@ public class Board extends JPanel {
 					currentRotation = 1;
 				} 
 				break;
-			case 2: //green dog
+			case 2: //green Z
 				if (currentRotation == 1 
 						&& grid[currentlyFallingBlock[1].x-1][currentlyFallingBlock[1].y] == 0
 						&& grid[currentlyFallingBlock[2].x][currentlyFallingBlock[2].y+1] == 0) {
@@ -404,23 +418,27 @@ public class Board extends JPanel {
 	}
 	
 	//Spawn a random piece to begin falling
+	// Every 7 pieces that spawn are randomly ordered
+	// but every possible type of piece must show up
+	// within 7 pieces.
 	public void spawnRandomPiece() {
-		/* 1 : red dog
-		 * 2 : green dog
+		/* 1 : red Z
+		 * 2 : green Z
 		 * 3 : blue L
 		 * 4 : yellow square
 		 * 5 : purple T
 		 * 6 : blue long piece
 		 * 7 : orange L
 		 */
-		Random rand = new Random();
 		
-		//TODO make all seven shapes show up together, but in random order
-		// so that you never get duplicates within 7 shapes of each other
+		//Get next piece to drop
+		int n = pieceArray[pieceCounter];
+		pieceCounter++;
 		
-		int n = rand.nextInt(7) + 1;
-		//int n = 1;
-		
+		if(pieceCounter > 6) { //ran out of shapes to spawn
+			shufflePieceArray();
+			pieceCounter = 0;
+		}
 		//Setting spawning block's rotation to first rotation
 		currentRotation = 1;
 		
@@ -557,6 +575,26 @@ public class Board extends JPanel {
 		gravity();
 		redraw();
 		
+	}
+	
+	//Puts our 7 possible piece in a random drop order
+	// This way the game feels fair
+	// and you're not getting the same piece 4 times in a row
+	// or waiting forever to get a line.
+	private void shufflePieceArray()
+	{
+	    int index;
+	    Random random = new Random();
+	    for (int i = pieceArray.length - 1; i > 0; i--)
+	    {
+	        index = random.nextInt(i + 1);
+	        if (index != i)
+	        {
+	        	pieceArray[index] ^= pieceArray[i];
+	        	pieceArray[i] ^= pieceArray[index];
+	        	pieceArray[index] ^= pieceArray[i];
+	        }
+	    }
 	}
 	
 	//This function should only be called after line clear.
