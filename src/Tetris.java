@@ -192,7 +192,6 @@ public class Tetris {
         gameBoard = new Board();
         frame.add(gameBoard);
         
-        
         //repaint our frame
         frame.revalidate();
         frame.repaint();
