@@ -78,18 +78,12 @@ public class Board extends JPanel {
             		moveLeft();
             		redraw();
             	}
-            	if(keyCode == KeyEvent.VK_Z) {
-            		//rotate left (counter clockwise)
-            		rotateLeft();
+            	if(keyCode == KeyEvent.VK_UP) {
+            		//rotate
+            		rotate();
             		redraw();
             	}
-            	if(keyCode == KeyEvent.VK_X) {
-            		//rotate right (clockwise)
-            		rotateRight();
-            		redraw();
-            	}
-            	
-            	if(keyCode == KeyEvent.VK_UP || keyCode == KeyEvent.VK_SPACE) {
+            	if(keyCode == KeyEvent.VK_SPACE) {
             		//instantly drop
             		while(gravity());
             		
@@ -99,21 +93,9 @@ public class Board extends JPanel {
 		});
 	}
 	
-	//rotate functions
-	public void rotateLeft() {
-		rotate(1);
-	}
-	public void rotateRight() {
-		rotate(2);
-	}
-	
 	//rotates currently falling block
-	// direction 1 for left rotate
-	// direction 2 for right rotate
-	private void rotate(int direction) {
+	private void rotate() {
 		int color = grid[currentlyFallingBlock[0].x][currentlyFallingBlock[0].y];
-		
-		//TODO CHECK ROTATE INTO BOUNDARY FOR CASE 3, 5, 6, 7
 		
 		switch (color - 7) {
 			case 1: //red dog
