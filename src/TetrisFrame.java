@@ -1,9 +1,6 @@
 import javax.swing.*;
 
 public class TetrisFrame extends JFrame{
-	/**
-	 * 
-	 */
 	
 	//Game grid size is 10*20
 	private static final int WIDTH = 300;
@@ -15,8 +12,7 @@ public class TetrisFrame extends JFrame{
     	setTitle("Tetris");
     	setResizable(false);
     	setVisible(true);
-    	//validate();
-		//setFocusable(true);
+
     }
 
 }

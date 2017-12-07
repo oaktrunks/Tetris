@@ -8,45 +8,24 @@ import java.util.Timer;
 public class Tetris {
 	private static TetrisFrame frame;
 	private static Board gameBoard;
-	//private static home splash;
 	private static JPanel splashScreen;
 	private static JPanel infoScreen;
 	private static JPanel creditScreen;
 	private static JPanel gameOverScreen;
 	private static Timer timer;
 	
-	private static boolean isFalling;
-	private static int timerDelay;
+	private static int timerDelay;	
+	private static int difficulty;
 	
 	public static void main(String[] args) {
 		//Initialize our frame
 		frame = new TetrisFrame();
-		
-		isFalling = false;
-		timerDelay = 750;
-		
+			
 		//Start splash screen
 		createSplash();
-		//createGameOverScreen();
-		
-		
-        //gameStart();
-        
-//        gameBoard.setBlock(0, 0, 0);
-//        gameBoard.setBlock(0, 1, 1);
-//        gameBoard.setBlock(0, 2, 2);
-//        gameBoard.setBlock(0, 3, 3);
-//        gameBoard.setBlock(0, 4, 4);
-//        gameBoard.setBlock(0, 5, 5);
-//        gameBoard.setBlock(0, 6, 6);
-//        gameBoard.setBlock(0, 7, 7);
-//        gameBoard.setBlock(0, 8, 8);
-        
-        
-        //gameBoard.dump();
-        //gameBoard.redraw();
 	}
     
+	//Creates the splash screen
 	public static void createSplash() {
 		frame.getContentPane().removeAll();
 		
@@ -64,7 +43,6 @@ public class Tetris {
     	
     	splashScreen.setLayout(null);
     	
-    	//TODO implement buttons, fix gameStart()
     	start.setBounds(95,200,100,50);
     	start.addActionListener(new ActionListener() {
     	    public void actionPerformed(ActionEvent evt) {
@@ -95,6 +73,7 @@ public class Tetris {
         frame.repaint();
 	}
 	
+	//Creates the info screen
 	public static void createInfoScreen() {
 		//new info screen
 		infoScreen = new JPanel();
@@ -137,6 +116,7 @@ public class Tetris {
         frame.repaint();
 	}
 	
+	//Creates the credits screen
 	public static void createCreditsScreen() {
 		creditScreen = new JPanel();
 		frame.getContentPane().removeAll();
@@ -168,6 +148,7 @@ public class Tetris {
         frame.repaint();
 	}
 	
+	//Creates the game over screen
 	public static void createGameOverScreen() {
 		int linesCleared = gameBoard.getLinesCleared();
 		
@@ -205,52 +186,33 @@ public class Tetris {
 	//Called to start our tetris game
 	private static void gameStart() {
 		//remove our splash screen
-		//System.out.println("removing all panels");
 		frame.getContentPane().removeAll();
-		//splashScreen.setVisible(false);
-		//System.out.println("removed all panels");
-		
+
 		//add game board
-		//System.out.println("adding gameboard");
         gameBoard = new Board();
         frame.add(gameBoard);
         
-        //System.out.println("added gameboard");
         
         //repaint our frame
-        //System.out.println("revalidating and repainting");
         frame.revalidate();
         frame.repaint();
-        //frame.setVisible(true);
-        //System.out.println("adding gameboard");
         
         //gameBoard needs focus so that KeyAdapter works.
         gameBoard.requestFocusInWindow();
         
-        //debug blocks
-//        gameBoard.setBlock(4, 0, 1);
-//        gameBoard.setBlock(4, 1, 1);
-//        gameBoard.setBlock(4, 2, 2);
-//        gameBoard.setBlock(4, 3, 3);
-//        gameBoard.setBlock(4, 4, 4);
-//        gameBoard.setBlock(4, 5, 5);
-//        gameBoard.setBlock(4, 6, 6);
-//        gameBoard.setBlock(4, 7, 7);
-//        gameBoard.setBlock(4, 9, 7);
-//        
-//        gameBoard.setBlock(23, 0, 1);
-//        gameBoard.setBlock(23, 1, 1);
-//        gameBoard.setBlock(23, 2, 2);
-//        gameBoard.setBlock(23, 3, 3);
-//        gameBoard.setBlock(23, 4, 4);
-//        gameBoard.setBlock(23, 5, 5);
-//        gameBoard.setBlock(23, 6, 6);
-//        gameBoard.setBlock(23, 7, 7);
-//        gameBoard.setBlock(23, 9, 7);
-        
         //Start game
+        difficulty = 1; //1 - 10
         gameBoard.spawnRandomPiece();
+		timerDelay = 750; //Starting delay at difficulty 1
+		
+        startTimer(timerDelay);
         
+	}
+	
+	//This creates a new timer, should only be used after
+	// canceling the active timer
+	// int delay - ms interval to run timer on
+	public static void startTimer(int delay) {
 		timer = new Timer();
         //Start running our game loop on a timer.
         timer.schedule(new TimerTask() {
@@ -258,10 +220,11 @@ public class Tetris {
         	public void run() {
         		gameLoop();
         	}
-        }, 0 , timerDelay);
-        
+        }, 0 , delay);
 	}
 	
+	//Gameloop responsible for keeping our game running
+	// should be called on an interval by a timer
 	public static void gameLoop() {
     	//Fall down one tick
     	if(gameBoard.gravity()) { //something fell
@@ -274,8 +237,20 @@ public class Tetris {
     		timer.purge();
     		
     		//Redirect to game over screen
-    		System.out.println("Game over");
     		createGameOverScreen();
+    	}
+    	
+    	//Make game go faster if threshold has been met, up to certain difficulty
+    	if(difficulty <= 10 && gameBoard.getLinesCleared() / 5 > difficulty) {
+    		//increase difficulty
+    		difficulty++;
+    		
+    		//make a new timer with a faster interval
+    		timer.cancel();
+    		timer.purge();
+    		
+    		timerDelay = 750 - difficulty * 50; //max difficulty is 50 ms
+            startTimer(timerDelay);
     	}
 	}
 	

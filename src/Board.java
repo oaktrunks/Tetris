@@ -64,7 +64,6 @@ public class Board extends JPanel {
             	
             	if(keyCode == KeyEvent.VK_DOWN) {
             		//move down a tick
-            		//System.out.println("moving down");
             		gravity();
             		redraw();
             	}
@@ -102,7 +101,6 @@ public class Board extends JPanel {
 				if (currentRotation == 1 
 						&& grid[currentlyFallingBlock[1].x-1][currentlyFallingBlock[1].y] == 0
 						&& grid[currentlyFallingBlock[2].x][currentlyFallingBlock[2].y - 1] == 0) {
-					//System.out.println("rotating from 1 to 2");
 					// completely remove original blocks
 					removeCurrentlyFallingBlocks();
 	
@@ -117,7 +115,6 @@ public class Board extends JPanel {
 						&& currentlyFallingBlock[1].y < WIDTH - 1
 						&& grid[currentlyFallingBlock[3].x][currentlyFallingBlock[1].y+1] == 0
 						&& grid[currentlyFallingBlock[3].x][currentlyFallingBlock[2].y+2] == 0) {
-					//System.out.println("rotating from 2 to 1");
 					// completely remove original blocks
 					removeCurrentlyFallingBlocks();
 	
@@ -133,7 +130,6 @@ public class Board extends JPanel {
 				if (currentRotation == 1 
 						&& grid[currentlyFallingBlock[1].x-1][currentlyFallingBlock[1].y] == 0
 						&& grid[currentlyFallingBlock[2].x][currentlyFallingBlock[2].y+1] == 0) {
-					//System.out.println("rotating from 1 to 2");
 					// completely remove original blocks
 					removeCurrentlyFallingBlocks();
 		
@@ -148,7 +144,6 @@ public class Board extends JPanel {
 						&& currentlyFallingBlock[1].y > 0
 						&& grid[currentlyFallingBlock[3].x][currentlyFallingBlock[1].y-1] == 0
 						&& grid[currentlyFallingBlock[3].x][currentlyFallingBlock[2].y-2] == 0) {
-					//System.out.println("rotating from 2 to 1");
 					// completely remove original blocks
 					removeCurrentlyFallingBlocks();
 		
@@ -166,7 +161,6 @@ public class Board extends JPanel {
 						&& grid[currentlyFallingBlock[2].x-1][currentlyFallingBlock[2].y] == 0
 						&& grid[currentlyFallingBlock[2].x+1][currentlyFallingBlock[2].y] == 0
 						&& grid[currentlyFallingBlock[3].x-1][currentlyFallingBlock[3].y] == 0) {
-					//System.out.println("rotating from 1 to 2");
 					//completely remove original blocks
 					removeCurrentlyFallingBlocks();
 					
@@ -182,7 +176,6 @@ public class Board extends JPanel {
 						&& grid[currentlyFallingBlock[2].x][currentlyFallingBlock[2].y+1] == 0
 						&& grid[currentlyFallingBlock[2].x][currentlyFallingBlock[2].y-1] == 0
 						&& grid[currentlyFallingBlock[3].x][currentlyFallingBlock[3].y+1] == 0) {
-					//System.out.println("rotating from 2 to 3");
 					//completely remove original blocks
 					removeCurrentlyFallingBlocks();
 					
@@ -197,7 +190,6 @@ public class Board extends JPanel {
 						&& grid[currentlyFallingBlock[2].x-1][currentlyFallingBlock[2].y] == 0
 						&& grid[currentlyFallingBlock[2].x+1][currentlyFallingBlock[2].y] == 0
 						&& grid[currentlyFallingBlock[3].x+1][currentlyFallingBlock[3].y] == 0) {
-					//System.out.println("rotating from 3 to 4");
 					//completely remove original blocks
 					removeCurrentlyFallingBlocks();
 					
@@ -213,7 +205,6 @@ public class Board extends JPanel {
 						&& grid[currentlyFallingBlock[2].x][currentlyFallingBlock[2].y+1] == 0
 						&& grid[currentlyFallingBlock[2].x][currentlyFallingBlock[2].y-1] == 0
 						&& grid[currentlyFallingBlock[3].x][currentlyFallingBlock[3].y-1] == 0) {
-					//System.out.println("rotating from 4 to 1");
 					//completely remove original blocks
 					removeCurrentlyFallingBlocks();
 					
@@ -234,7 +225,6 @@ public class Board extends JPanel {
 				if(currentRotation == 4
 						&& currentlyFallingBlock[0].y < WIDTH - 1
 						&& grid[currentlyFallingBlock[0].x][currentlyFallingBlock[0].y+1] == 0) {
-					//System.out.println("rotating from 4 to 1");
 					//completely remove original blocks
 					removeCurrentlyFallingBlocks();
 					
@@ -247,7 +237,6 @@ public class Board extends JPanel {
 				}
 				else if(currentRotation == 3
 						&& grid[currentlyFallingBlock[0].x-1][currentlyFallingBlock[0].y] == 0) {
-					//System.out.println("rotating from 3 to 4");
 					//completely remove original blocks
 					removeCurrentlyFallingBlocks();
 					
@@ -261,7 +250,6 @@ public class Board extends JPanel {
 				else if(currentRotation == 2
 						&& currentlyFallingBlock[0].y > 0
 						&& grid[currentlyFallingBlock[0].x][currentlyFallingBlock[0].y-1] == 0) {
-					//System.out.println("rotating from 2 to 3");
 					//completely remove original blocks
 					removeCurrentlyFallingBlocks();
 					
@@ -275,7 +263,6 @@ public class Board extends JPanel {
 				else if(currentRotation == 1
 						&& currentlyFallingBlock[0].x < HEIGHT - 1
 						&& grid[currentlyFallingBlock[0].x+1][currentlyFallingBlock[0].y] == 0) {
-					//System.out.println("rotating from 1 to 2");
 					//completely remove original blocks
 					removeCurrentlyFallingBlocks();
 					
@@ -291,7 +278,7 @@ public class Board extends JPanel {
 			case 6: //long piece
 				//checking if rotation causes collision
 				if(currentRotation == 1
-						&& currentlyFallingBlock[1].x < HEIGHT - 2
+						&& currentlyFallingBlock[1].x < HEIGHT - 3
 						&& grid[currentlyFallingBlock[0].x+1][currentlyFallingBlock[0].y+2] == 0
 						&& grid[currentlyFallingBlock[0].x+2][currentlyFallingBlock[0].y+2] == 0
 						&& grid[currentlyFallingBlock[0].x+3][currentlyFallingBlock[0].y+2] == 0 
@@ -333,7 +320,6 @@ public class Board extends JPanel {
 						&& grid[currentlyFallingBlock[2].x-1][currentlyFallingBlock[2].y] == 0
 						&& grid[currentlyFallingBlock[2].x+1][currentlyFallingBlock[2].y] == 0
 						&& grid[currentlyFallingBlock[1].x+1][currentlyFallingBlock[1].y] == 0) {
-					//System.out.println("rotating from 1 to 2");
 					//completely remove original blocks
 					removeCurrentlyFallingBlocks();
 					
@@ -349,7 +335,6 @@ public class Board extends JPanel {
 						&& grid[currentlyFallingBlock[2].x][currentlyFallingBlock[2].y+1] == 0
 						&& grid[currentlyFallingBlock[2].x][currentlyFallingBlock[2].y-1] == 0
 						&& grid[currentlyFallingBlock[1].x][currentlyFallingBlock[1].y-1] == 0) {
-					//System.out.println("rotating from 2 to 3");
 					//completely remove original blocks
 					removeCurrentlyFallingBlocks();
 					
@@ -364,7 +349,6 @@ public class Board extends JPanel {
 						&& grid[currentlyFallingBlock[2].x-1][currentlyFallingBlock[2].y] == 0
 						&& grid[currentlyFallingBlock[2].x+1][currentlyFallingBlock[2].y] == 0
 						&& grid[currentlyFallingBlock[1].x-1][currentlyFallingBlock[1].y] == 0) {
-					//System.out.println("rotating from 3 to 4");
 					//completely remove original blocks
 					removeCurrentlyFallingBlocks();
 					
@@ -380,7 +364,6 @@ public class Board extends JPanel {
 						&& grid[currentlyFallingBlock[2].x][currentlyFallingBlock[2].y+1] == 0
 						&& grid[currentlyFallingBlock[2].x][currentlyFallingBlock[2].y-1] == 0
 						&& grid[currentlyFallingBlock[1].x][currentlyFallingBlock[1].y+1] == 0) {
-					//System.out.println("rotating from 4 to 1");
 					//completely remove original blocks
 					removeCurrentlyFallingBlocks();
 					
@@ -410,9 +393,6 @@ public class Board extends JPanel {
 	// dy is relative position to move y by
 	// should only be called after collision has been checked
 	private void moveFallingBlock(int color, int i , int dx, int dy) {
-//		//System.out.println("moving " + i + " by x: " +  dx);
-//		//System.out.println("moving " + i + " by y: " +  dy);
-//		//System.out.println("color =  " + color);
 		currentlyFallingBlock[i].x += dx;
 		currentlyFallingBlock[i].y += dy;
 		grid[currentlyFallingBlock[i].x][currentlyFallingBlock[i].y] = color;
@@ -421,20 +401,6 @@ public class Board extends JPanel {
 	//Sets the color of a block. Mostly used for debugging
 	public void setBlock(int i , int j, int color) {
 		grid[i][j] = color;
-	}
-	
-	//For debug.
-	//Outputs grid in 2d grid format.
-	public void dump() {
-		for(int i = 0; i < HEIGHT; i++) {
-			for(int j = 0; j < WIDTH; j++) {
-				//System.out.print(grid[i][j]);
-			}
-			//System.out.print("\n");
-		}
-		for(int i = 0; i < 4; i++) {
-			//System.out.println(currentlyFallingBlock[i].y + " " + currentlyFallingBlock[i].x);
-		}
 	}
 	
 	//Spawn a random piece to begin falling
@@ -595,7 +561,7 @@ public class Board extends JPanel {
 	
 	//This function should only be called after line clear.
 	// This should never be used to drop currentlyFallingBlock
-	//brings every line above int line down one
+	//brings every line above parameter line, down one
 	public void massGravity(int line) {
 		//iterate over lines above line
 		for(int i = line - 1; i >= 0; i--) {
@@ -615,6 +581,8 @@ public class Board extends JPanel {
 	
 	//This function is used to drop currentlyFallingBlock one tick
 	//Returns true if blocks moved down, false if everything is static
+	// Also spawns a new shape if current one lands.
+	// Checks if game is over
 	public boolean gravity() {
 		if(gameOver)
 			return false;
@@ -660,7 +628,6 @@ public class Board extends JPanel {
 				if(isLineFull(currentlyFallingBlock[i].x)) {
 					//clear line, increment score
 					clearLine(currentlyFallingBlock[i].x);
-					linesCleared++;
 				}
 			}
 			//redraw after clearing lines
@@ -697,11 +664,14 @@ public class Board extends JPanel {
 		return !collision;
 	}
 	
+	//Returns true if a line is full of blocks
 	public boolean isLineFull(int line) {
 		return lineBlockCount[line] == WIDTH;
 	}
 	
+	//Empties a line
 	private void clearLine(int line) {
+		linesCleared++;
 		//clear the line
 		for(int i = 0; i < WIDTH; i++) {
 			grid[line][i] = 0;
@@ -713,6 +683,7 @@ public class Board extends JPanel {
 		massGravity(line);
 	}
 	
+	//Moves currently falling shape to the right
 	public void moveRight() {
 		boolean canMove = true;
 		//check if any of four pieces are on right most column
@@ -747,6 +718,7 @@ public class Board extends JPanel {
 		}
 	}
 	
+	//Moves currently falling shape to the left
 	public void moveLeft() {
 		boolean canMove = true;
 		//check if any of four pieces are on right most column
@@ -780,6 +752,9 @@ public class Board extends JPanel {
 			}
 		}
 	}
+	
+	//Updates this.gameOver to indicate
+	// current status of game
 	private void checkGameOver() {
 		//if there's a static block in first two rows, game is over
 		for(int i = 0; i < 2; i++) {
@@ -791,17 +766,18 @@ public class Board extends JPanel {
 		}
 	}
 	
+	//returns lines cleared
 	public int getLinesCleared() {
 		return linesCleared;
 	}
 	
+	//returns true if game is over
 	public boolean isGameOver() {
 		return gameOver;
 	}
 	
-	//Redraws out gameboard
+	//Redraws gameboard
 	public void redraw() {
-		////System.out.println("repainting");
 		repaint();
 	}
 	
@@ -814,9 +790,9 @@ public class Board extends JPanel {
 		g.fillRect(squareX,squareY,25,25);
 	}
 	
+	//Rendering function
 	@Override
 	protected void paintComponent(Graphics g) {
-		////System.out.println("PaintComponent called");
 		super.paintComponent(g);
 		for(int i = 0; i < HEIGHT; i++) {
 			for(int j = 0; j < WIDTH; j++) {
@@ -826,7 +802,6 @@ public class Board extends JPanel {
 						drawBlock(g, grid[i][j], i, j);
 					else
 						drawBlock(g, grid[i][j] - 7, i, j);
-					////System.out.println("Drawing block at index " + i +" , " + j);
 				}
 			}
 		}
