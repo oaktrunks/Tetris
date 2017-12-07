@@ -201,7 +201,7 @@ public class Tetris {
         gameBoard.requestFocusInWindow();
         
         //Start game
-        difficulty = 1; //1 - 10
+        difficulty = 1; //1 - 12
         gameBoard.spawnRandomPiece();
 		timerDelay = 750; //Starting delay at difficulty 1
 		
@@ -241,7 +241,7 @@ public class Tetris {
     	}
     	
     	//Make game go faster if threshold has been met, up to certain difficulty
-    	if(difficulty <= 10 && gameBoard.getLinesCleared() / 5 > difficulty) {
+    	if(difficulty <= 12 && gameBoard.getLinesCleared() / 7 > difficulty) {
     		//increase difficulty
     		difficulty++;
     		
